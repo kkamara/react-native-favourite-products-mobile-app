@@ -6,20 +6,23 @@ import ProductDetails from "./screens/productDetails"
 import { NavigationContainer, } from "@react-navigation/native"
 import { createNativeStackNavigator, } from "@react-navigation/native-stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import ProductContext from "./context"
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 function BottomTabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen options={{
-        title: "Product List",
-      }} name="productListing" component={ProductListing} />
-      <Tab.Screen options={{
-        title: "Favourites",
-      }} name="favourites" component={Favourites} />
-    </Tab.Navigator>
+    <ProductContext>
+      <Tab.Navigator>
+        <Tab.Screen options={{
+          title: "Product List",
+        }} name="productListing" component={ProductListing} />
+        <Tab.Screen options={{
+          title: "Favourites",
+        }} name="favourites" component={Favourites} />
+      </Tab.Navigator>
+    </ProductContext>
   )
 }
 
