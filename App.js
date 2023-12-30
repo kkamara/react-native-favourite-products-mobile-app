@@ -13,8 +13,12 @@ const Tab = createBottomTabNavigator()
 function BottomTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="productListing" component={ProductListing} />
-      <Tab.Screen name="favourites" component={Favourites} />
+      <Tab.Screen options={{
+        title: "Product List",
+      }} name="productListing" component={ProductListing} />
+      <Tab.Screen options={{
+        title: "Favourites",
+      }} name="favourites" component={Favourites} />
     </Tab.Navigator>
   )
 }
@@ -25,8 +29,12 @@ export default function App() {
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="bottomtabs" component={BottomTabs} />
-          <Stack.Screen name="productDetails" component={ProductDetails} />
+          <Stack.Screen options={{
+            headerShown: false,
+          }} name="bottomtabs" component={BottomTabs} />
+          <Stack.Screen options={{
+            title: "Product Details",
+          }} name="productDetails" component={ProductDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
