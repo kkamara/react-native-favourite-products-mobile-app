@@ -8,6 +8,7 @@ import {
 } from "react-native"
 import { Context, } from "../../context"
 import ProductListItem from "../../components/productListItem"
+import { useNavigation, } from "@react-navigation/native"
 
 function createRandomColor() {
     let letters = "0123456789ABCDEF"
@@ -23,13 +24,17 @@ function createRandomColor() {
 export default function ProductListing() {
     const { loading, products, } = useContext(Context)
 
+    const navigation = useNavigation()
+
     if (loading) {
         return (
             <ActivityIndicator style={styles.loader} color={"red"} size={"large"} />
         )
     }
 
-    const handleOnPress = () => {}
+    const handleOnPress = () => {
+        navigation.navigate("productDetails")
+    }
 
     return (
         <View>
