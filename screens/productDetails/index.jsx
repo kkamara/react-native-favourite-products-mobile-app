@@ -1,6 +1,7 @@
-import { View, Text, } from "react-native"
-import { useRoute, useScrollToTop, } from "@react-navigation/native"
-import { useEffect, useState } from "react"
+import { View, Text, ActivityIndicator, } from "react-native"
+import { useRoute, } from "@react-navigation/native"
+import { useEffect, useState, } from "react"
+import ProductDetailsItem from "../../components/productDetailsItem"
 
 export default function ProductDetails() {
     const route = useRoute()
@@ -24,11 +25,17 @@ export default function ProductDetails() {
         getDataFromApi()
     }, [])
 
+    if (loading) {
+        return (
+            <ActivityIndicator size="large" color="red" />
+        )
+    }
+
     console.log(productDetailsData)
 
     return (
         <View>
-            <Text>ProductDetails</Text>
+            <ProductDetailsItem productDetailsData={productDetailsData} />
         </View>
     )
 }
