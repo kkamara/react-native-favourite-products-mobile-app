@@ -32,8 +32,10 @@ export default function ProductListing() {
         )
     }
 
-    const handleOnPress = () => {
-        navigation.navigate("productDetails")
+    const handleOnPress = (id) => {
+        navigation.navigate("productDetails", {
+            productId: id,
+        })
     }
 
     return (
@@ -43,7 +45,7 @@ export default function ProductListing() {
                 renderItem={(itemData) => <ProductListItem
                     title={itemData.item.title}
                     bgColor={createRandomColor()}
-                    onPress={handleOnPress}                   
+                    onPress={() => handleOnPress(itemData.item.id)}                   
                 />}
                 keyExtractor={(itemData) => itemData.id}
                 numColumns={2}
