@@ -7,7 +7,18 @@ import {
     FlatList,
 } from "react-native"
 import { Context, } from "../../context"
+import ProductListItem from "../../components/productListItem"
 
+function createRandomColor() {
+    let letters = "0123456789ABCDEF"
+    let color = "#"
+
+    for (let i=0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)]
+    }
+
+    return color
+}
 
 export default function ProductListing() {
     const { loading, products, } = useContext(Context)
@@ -18,13 +29,17 @@ export default function ProductListing() {
         )
     }
 
+    const handleOnPress = () => {}
+
     return (
         <View>
             <FlatList
                 data={products}
-                renderItem={(itemData) => <Text>
-                    {itemData.item.title}
-                </Text>}
+                renderItem={(itemData) => <ProductListItem
+                    title={itemData.item.title}
+                    bgColor={createRandomColor()}
+                    onPress={handleOnPress}                   
+                />}
                 keyExtractor={(itemData) => itemData.id}
                 numColumns={2}
             />
