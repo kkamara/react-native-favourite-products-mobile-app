@@ -1,14 +1,18 @@
-import { View, Text, StyleSheet, } from "react-native"
+import { View, Text, StyleSheet, Pressable, } from "react-native"
 
 
 export default function FavouriteItem({
     title,
     reason,
+    handleRemoveFavourites,
+    id,
 }) {
     return (
         <View style={styles.favouriteItemContainer}>
-            <Text style={styles.text}>{title}</Text>
-            <Text style={styles.text}>{reason}</Text>
+            <Pressable onPress={() => handleRemoveFavourites(id)}>
+                <Text style={styles.text}>{title}</Text>
+                <Text style={styles.text}>{reason}</Text>
+            </Pressable>
         </View>
     )
 }

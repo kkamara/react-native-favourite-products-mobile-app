@@ -28,8 +28,8 @@ const ProductContext = ({children}) => {
                 ...copyFavouriteItems[index],
                 reason,
             }
-            setFavouriteItems(copyFavouriteItems)
         }
+        setFavouriteItems(copyFavouriteItems)
     }
 
     useEffect(() => {
@@ -49,13 +49,20 @@ const ProductContext = ({children}) => {
         getProductsFromApi()
     }, [])
 
-    console.log(favouriteItems)
+    const handleRemoveFavourites = (currentId) => {
+        let copyFavouriteItems = [...favouriteItems]
+        copyFavouriteItems = copyFavouriteItems.filter(
+            (item) => item.id !== currentId
+        )
+        setFavouriteItems(copyFavouriteItems)
+    }
 
     return <Context.Provider value={{ 
         products,
         loading,
         addToFavourites,
         favouriteItems,
+        handleRemoveFavourites,
     }}>
         {children}
     </Context.Provider>
