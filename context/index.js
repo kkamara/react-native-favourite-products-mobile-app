@@ -23,7 +23,11 @@ const ProductContext = ({children}) => {
                 id: productId,
                 reason,
             })
-
+        } else {
+            copyFavouriteItems[index] = {
+                ...copyFavouriteItems[index],
+                reason,
+            }
             setFavouriteItems(copyFavouriteItems)
         }
     }

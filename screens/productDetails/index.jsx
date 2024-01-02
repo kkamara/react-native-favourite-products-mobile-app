@@ -18,13 +18,18 @@ export default function ProductDetails() {
     const productId = route.params.productId
     const navigation = useNavigation()
 
-    const { addToFavourites, } = useContext(Context)
+    const { addToFavourites, favouriteItems, } = useContext(Context)
 
     const [loading, setLoading] = useState(false)
     const [productDetailsData, setProductDetailsData] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const [reason, setReason] = useState("")
 
+    const isCurrentItemPresentInFavouriteItemsArray =
+        favouriteItems && favouriteItems.length > 0 ?
+        favouriteItems.filter(item => item.id === productId) :
+        false
+    
     useEffect(() => {
         setLoading(true)
         async function getDataFromApi() {
@@ -44,7 +49,10 @@ export default function ProductDetails() {
         navigation.setOptions({
             headerRight: () => {
                 return (
-                    <Button onPress={() => setModalVisible(true)} title="Add favourites" />
+                    <Button 
+                        onPress={() => setModalVisible(true)} 
+                        title={isCurrentItemPresentInFavouriteItemsArray && isCurrentItemPresentInFavouriteItemsArray.length > 0 ? "Update favourites" : "Add favourites"}
+                    />
                 )
             }
         })
@@ -68,33 +76,38 @@ export default function ProductDetails() {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
-                setModalVisible(!modalVisible);
-                }}>
+                    Alert.alert('Modal has been closed.');
+                    setModalVisible(!modalVisible);
+                }
+            }>
                 <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <TextInput
-                        placeholder="Why you like this product?"
-                        onChangeText={handleOnChange}
-                        value={reason}
-                        style={styles.reasonTextInput}
-                    />
-                    <View style={styles.buttonWrapper}>
-                        <Pressable
-                            style={[styles.button, styles.buttonOpen]}
-                            onPress={() => {
-                                addToFavourites(productId, reason)
-                                setModalVisible(!modalVisible)
-                            }}>
-                            <Text style={styles.textStyle}>Add</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
+                    <View style={styles.modalView}>
+                        <TextInput
+                            placeholder="Why you like this product?"
+                            onChangeText={handleOnChange}
+                            value={reason}
+                            style={styles.reasonTextInput}
+                        />
+                        <View style={styles.buttonWrapper}>
+                            <Pressable
+                                style={[styles.button, styles.buttonOpen]}
+                                onPress={() => {
+                                    addToFavourites(productId, reason)
+                                    setModalVisible(!modalVisible)
+                                }}>
+                                <Text style={styles.textStyle}>{
+                                    isCurrentItemPresentInFavouriteItemsArray && isCurrentItemPresentInFavouriteItemsArray.length > 0 ?
+                                    "Update" :
+                                    "Add"
+                                }</Text>
+                            </Pressable>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={styles.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
                 </View>
             </Modal>
         </View>
