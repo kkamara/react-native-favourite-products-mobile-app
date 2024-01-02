@@ -13,7 +13,6 @@ const Tab = createBottomTabNavigator()
 
 function BottomTabs() {
   return (
-    <ProductContext>
       <Tab.Navigator>
         <Tab.Screen options={{
           title: "Product List",
@@ -22,34 +21,35 @@ function BottomTabs() {
           title: "Favourites",
         }} name="favourites" component={Favourites} />
       </Tab.Navigator>
-    </ProductContext>
   )
 }
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#fff",
-            },
-            contentStyle: {
-              backgroundColor: "#220577dd",
-            },
-          }}
-        >
-          <Stack.Screen options={{
-            headerShown: false,
-          }} name="bottomtabs" component={BottomTabs} />
-          <Stack.Screen options={{
-            title: "Product Details",
-          }} name="productDetails" component={ProductDetails} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <ProductContext>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "#fff",
+              },
+              contentStyle: {
+                backgroundColor: "#220577dd",
+              },
+            }}
+          >
+            <Stack.Screen options={{
+              headerShown: false,
+            }} name="bottomtabs" component={BottomTabs} />
+            <Stack.Screen options={{
+              title: "Product Details",
+            }} name="productDetails" component={ProductDetails} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </ProductContext>
   )
 }
 

@@ -7,6 +7,27 @@ const ProductContext = ({children}) => {
 
     const [loading, setLoading] = useState(false)
 
+    const [favouriteItems, setFavouriteItems] = useState([])
+
+    const addToFavourites = (productId, reason) => {
+        let copyFavouriteItems = [...favouriteItems]
+        const index = copyFavouriteItems.findIndex(
+            item => item.id === productId
+        )
+        if (index === -1) {
+            const getCurrentProductItem = products.find(
+                item => item.id === productId
+            )
+            copyFavouriteItems.push({
+                title: getCurrentProductItem.title,
+                id: productId,
+                reason,
+            })
+
+            setFavouriteItems(copyFavouriteItems)
+        }
+    }
+
     useEffect(() => {
         setLoading(true)
         async function getProductsFromApi() {
@@ -24,7 +45,14 @@ const ProductContext = ({children}) => {
         getProductsFromApi()
     }, [])
 
-    return <Context.Provider value={{ products, loading, }}>
+    console.log(favouriteItems)
+
+    return <Context.Provider value={{ 
+        products,
+        loading,
+        addToFavourites,
+        favouriteItems,
+    }}>
         {children}
     </Context.Provider>
 }
